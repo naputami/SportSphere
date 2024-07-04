@@ -46,26 +46,32 @@ npx create-next-app@latest -e https://github.com/Devscale-Indonesia/devscale-nex
 npx create-next-app@latest -e https://github.com/Devscale-Indonesia/devscale-nextjs-canary-r2 .
 ```
 
-2. Install dependencies:
+2. Move to directory
+
+```bash
+cd <project-name>
+```
+
+3. Install dependencies:
 
 ```bash
 npm install
 ```
 
-3. Copy the `.env.example` to `.env`:
+4. Copy the `.env.example` to `.env`:
 
 ```bash
 cp .env.example .env
 ```
 
-4. Setting provider database and create database model in the [schema.prisma](./prisma/schema.prisma) file.
+5. Setting provider database and create database model in the [schema.prisma](./prisma/schema.prisma) file.
 
 ```bash
 prisma
     └── schema.prisma
 ```
 
-5. Do prisma migration:
+6. Do prisma migration:
 
 > [!WARNING]
 > This step if the database provider used is `SQLite`, otherwise ignore it and skip this step.
@@ -74,27 +80,33 @@ prisma
 npm run db:migrate
 ```
 
-6. Use `db push` to push the initial schema to the database:
+7. Use `db push` to push the initial schema to the database:
 
 ```bash
 npm run db:push
 ```
 
-7. Run the development server:
+8. Do prisma generate:
+
+```bash
+npx prisma generate
+```
+
+9.  Run the development server:
 
 ```bash
 npm run dev
 ```
 
-8. Open http://localhost:3000 with your browser to see the result.
+10. Open http://localhost:3000 with your browser to see the result.
 
-9. Do prisma studio:
+11. Do prisma studio:
 
 ```bash
 npm run db:studio
 ```
 
-10. Open http://localhost:5555 with your browser to see the result.
+12. Open http://localhost:5555 with your browser to see the result.
 
 ## Deployment
 
