@@ -8,6 +8,9 @@ This is an example template, already set up:
 - [daisyUI](https://daisyui.com/)
 - [Prisma](https://prisma.io/)
 - [Cloudflare R2](https://www.cloudflare.com/developer-platform/r2/)
+- [bcrypt](https://www.npmjs.com/package/bcrypt)
+- [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
+- [Arctic](https://www.npmjs.com/package/arctic)
 
 ## Environment Variables
 
@@ -23,6 +26,12 @@ This is an example template, already set up:
 - POSTGRES_HOST
 - POSTGRES_PASSWORD
 - POSTGRES_DATABASE
+
+> OAuth Google Cloud Console
+
+- GOOGLE_CLIENT_ID
+- GOOGLE_SECRET_KEY
+- GOOGLE_REDIRECT_URI
 
 > Cloudflare R2
 
