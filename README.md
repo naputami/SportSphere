@@ -48,12 +48,12 @@ This is an example template, already set up:
 - Clone the repo.
 
 ```bash
-git clone https://github.com/Devscale-Indonesia/devscale-nextjs-canary-r2.git
+git clone https://github.com/Devscale-Indonesia/devscale-nextjs-canary-r2.git <project-name>
 # at current directory/folder
 git clone https://github.com/Devscale-Indonesia/devscale-nextjs-canary-r2.git .
 
 # using ssh
-git clone git@github.com:Devscale-Indonesia/devscale-nextjs-canary-r2.git
+git clone git@github.com:Devscale-Indonesia/devscale-nextjs-canary-r2.git <project-name>
 # at current directory/folder
 git clone git@github.com:Devscale-Indonesia/devscale-nextjs-canary-r2.git .
 ```
