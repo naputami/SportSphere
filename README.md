@@ -61,7 +61,7 @@ git clone git@github.com:Devscale-Indonesia/devscale-nextjs-canary-r2.git .
 - Create project with template.
 
 ```bash
-npx create-next-app@latest -e https://github.com/Devscale-Indonesia/devscale-nextjs-canary-r2
+npx create-next-app@latest -e https://github.com/Devscale-Indonesia/devscale-nextjs-canary-r2 <project-name>
 # at current directory/folder
 npx create-next-app@latest -e https://github.com/Devscale-Indonesia/devscale-nextjs-canary-r2 .
 ```
