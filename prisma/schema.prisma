@@ -3,14 +3,63 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling    
-  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection   
+  provider = "postgresql"
+  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
 model User {
-  id       String  @id @default(cuid())
-  email    String  @unique
-  name     String
+  user_id String @id @default(cuid())
+  name String
+  email String @unique 
   password String?
+  communities Community[]
+  communityMembers CommunityMember[]
+  eventParticipants EventParticipant[]
+
+}
+
+model Community {
+  community_id String @id @default(cuid())
+  name String
+  city String
+  sport_type String
+  description String
+  community_image_profile String
+  is_private Boolean
+  user_id String
+  user User @relation(fields: [user_id], references: [user_id])
+  communityMembers CommunityMember[]
+  events Event[]
+}
+
+model CommunityMember {
+  community_member_id String @id @default(cuid())
+  user_id String
+  community_id String
+  user User @relation(fields: [user_id], references: [user_id])
+  community Community @relation(fields: [community_id], references: [community_id])
+}
+
+model Event {
+  event_id String @id @default(cuid())
+  name String
+  date DateTime
+  location String
+  quota Int
+  fee Int
+  event_image String
+  additional_note String
+  community_id String
+  community Community @relation(fields: [community_id], references: [community_id])
+  eventParticipants EventParticipant[]
+  
+}
+
+model EventParticipant {
+ event_participant_id String @id @default(cuid())
+ user_id String
+ event_id String
+ user User @relation(fields: [user_id], references: [user_id])
+ event Event @relation(fields: [event_id], references: [event_id])
 }
