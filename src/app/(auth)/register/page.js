@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useActionState } from "react";
 import { registerAction } from "./action";
+import { IconApps } from "../../../components/iconApps";
 
 export default function page() {
   const [state, formAction, pending] = useActionState(registerAction, null);
@@ -11,12 +12,11 @@ export default function page() {
     <div className="bg-indigo-950 w-screen h-screen grid md:grid-cols-2">
       <div className="hidden md:grid space-y-32 px-10 py-8">
         <div className="flex items-end">
-          {/* harusnya ada logo */}
-          <div className="text-yellow-400 text-2xl font-bold">Eventify</div>
+          <IconApps />
+          <div className="text-yellow-400 text-2xl font-bold">Sport Sphere</div>
         </div>
         <div className="text-white text-3xl w-4/5">
-          Discover tailored events. Sign up for personalized recommendations
-          today!
+          Sign up for Sport Community recommendations around!
         </div>
       </div>
       <div className="bg-white border-l rounded-s-3xl px-16 space-y-8 py-24">
