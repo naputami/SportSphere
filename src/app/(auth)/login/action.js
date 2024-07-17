@@ -47,7 +47,7 @@ export async function loginAction(_, formData) {
   }
 
   const payload = {
-    id: user.id,
+    id: user.user_id,
     name: user.name,
     email: user.email,
   };
