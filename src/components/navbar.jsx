@@ -1,4 +1,16 @@
+"use client";
+import { logoutAction } from "@/app/action";
+import toast from "react-hot-toast";
+import { useEffect, useActionState } from "react";
 export const Navbar = ({ user }) => {
+  const [state, formAction, pending] = useActionState(logoutAction, null);
+  useEffect(() => {
+    if (state?.status === "success") {
+      toast.success(state?.message);
+    } else if (state?.status === "error") {
+      toast.error(state?.message);
+    }
+  }, [state]);
   return (
     <>
       <div className="navbar bg-dark-navy-theme lg:px-10">
@@ -59,7 +71,7 @@ export const Navbar = ({ user }) => {
             </ul>
           </div>
           <div className="btn btn-ghost">
-            <a>
+            <a href="/">
               <img src="/logo.svg" width={200} />
             </a>
           </div>
@@ -88,7 +100,10 @@ export const Navbar = ({ user }) => {
               <a className="text-white" href="/login">
                 Login
               </a>
-              <a className="btn bg-yellow-theme hover:bg-yellow-theme">
+              <a
+                className="btn bg-yellow-theme hover:bg-yellow-theme"
+                href="/register"
+              >
                 Sign up
               </a>
             </div>
@@ -103,9 +118,11 @@ export const Navbar = ({ user }) => {
                 </div>
                 <p className="text-white">{user.name}</p>
               </div>
-              <a className="btn bg-yellow-theme hover:bg-yellow-theme">
-                Logout
-              </a>
+              <form action={formAction}>
+                <button className="btn bg-yellow-theme hover:bg-yellow-theme">
+                  Logout
+                </button>
+              </form>
             </div>
           )}
         </div>
