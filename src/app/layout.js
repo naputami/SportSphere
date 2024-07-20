@@ -5,9 +5,9 @@ import { Toaster } from "react-hot-toast";
 
 export const metadata = {
   title:
-    "Template Next.js (Canary Version), Prisma, Cloudflare R2 | Devscale ID",
+    "Sport Sphere",
   description:
-    "Template Project Next.js (Canary Version), Prisma, Cloudflare R2 for Devscale ID",
+    "Sport Sphere By Elysium",
   icons: {
     icon: "/icon.svg",
   },
