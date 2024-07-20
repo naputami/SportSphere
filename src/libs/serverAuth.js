@@ -1,18 +1,17 @@
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 import jwt from "jsonwebtoken";
 
 export function serverAuth() {
   const token = cookies().get("token")?.value;
 
   if (!token) {
-    redirect("/login");
+    return null;
   }
 
   try {
     const payload = jwt.verify(token, process.env.JWT_SECRET);
-    return { user: payload };
+    return payload;
   } catch (error) {
-    redirect("/login");
+    return null;
   }
 }
