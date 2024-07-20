@@ -4,15 +4,22 @@ import Link from "next/link";
 import { useActionState } from "react";
 import { loginAction } from "./action";
 import { IconApps } from "@/components/iconApps";
+import { loginWithGoogleAction } from "../(oauth-action)/oauth.google-action";
 
 export default function page() {
   const [state, formAction, pending] = useActionState(loginAction, null);
   return (
     <div className="bg-indigo-950 w-screen h-screen grid md:grid-cols-2">
-      <div className="hidden md:grid space-y-32 px-10 py-8">
-        <div className="flex items-end">
-          <IconApps />
-          <div className="text-yellow-400 text-2xl font-bold">Sport Sphere</div>
+      <div className="hidden md:grid px-10 py-8">
+        <div>
+          <a href="/">
+            <div className="flex gap-2">
+              <IconApps />
+              <div className="text-yellow-400 text-2xl font-bold">
+                Sport Sphere
+              </div>
+            </div>
+          </a>
         </div>
         <div className="text-white text-3xl w-4/5">
           Login for Sport Community recommendations around!
@@ -34,6 +41,7 @@ export default function page() {
               </div>
               <input
                 name="email"
+                defaultValue={state?.data?.email}
                 type="email"
                 placeholder="Enter your e-mail"
                 className="input input-bordered w-full max-w-sm border border-slate-400 rounded-lg h-10 px-4 text-sm"
@@ -49,6 +57,7 @@ export default function page() {
               </div>
               <input
                 name="password"
+                defaultValue={state?.data?.password}
                 type="password"
                 placeholder="Enter password"
                 className="input input-bordered w-full max-w-sm border border-slate-400 rounded-lg h-10 px-4 text-sm"
@@ -58,13 +67,19 @@ export default function page() {
           <div>
             <button
               disabled={pending}
-              className="w-full bg-indigo-950 max-w-sm py-2 border rounded-full text-white my-4"
+              className="w-full bg-dark-navy-theme max-w-sm py-2 border rounded-full text-white my-4"
             >
               Login
             </button>
-            {!state?.success && <p>{state?.message}</p>}
+            {!state?.success && (
+              <p className="text-red-600">{state?.message}</p>
+            )}
             {state?.success && <p>{state?.message}</p>}
           </div>
+        </form>
+        <form action={loginWithGoogleAction} className="space-y-3">
+          <p>Other Method</p>
+          <button className="btn btn-neutral">Continue With Google</button>
         </form>
         <p>
           Don&apos;t have an account?{" "}

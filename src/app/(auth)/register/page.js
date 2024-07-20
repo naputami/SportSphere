@@ -4,16 +4,23 @@ import Link from "next/link";
 import { useActionState } from "react";
 import { registerAction } from "./action";
 import { IconApps } from "../../../components/iconApps";
+import { loginWithGoogleAction } from "../(oauth-action)/oauth.google-action";
 
 export default function page() {
   const [state, formAction, pending] = useActionState(registerAction, null);
 
   return (
-    <div className="bg-indigo-950 w-screen h-screen grid md:grid-cols-2">
-      <div className="hidden md:grid space-y-32 px-10 py-8">
-        <div className="flex items-end">
-          <IconApps />
-          <div className="text-yellow-400 text-2xl font-bold">Sport Sphere</div>
+    <div className="bg-dark-navy-theme w-screen h-screen grid md:grid-cols-2">
+      <div className="hidden md:grid px-10 py-8">
+        <div>
+          <a href="/">
+            <div className="flex gap-2">
+              <IconApps />
+              <div className="text-yellow-400 text-2xl font-bold">
+                Sport Sphere
+              </div>
+            </div>
+          </a>
         </div>
         <div className="text-white text-3xl w-4/5">
           Sign up for Sport Community recommendations around!
@@ -84,6 +91,10 @@ export default function page() {
             <p className="text-red-600">{state.message}</p>
           )}
           {state?.success === "true" && <p>Register success, please login</p>}
+        </form>
+        <form action={loginWithGoogleAction} className="space-y-3">
+          <p>Other Method</p>
+          <button className="btn btn-neutral">Continue With Google</button>
         </form>
         <p>
           Already have an account?{" "}
