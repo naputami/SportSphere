@@ -1,23 +1,15 @@
-import React from "react";
-import PropTypes from "prop-types";
+export const Button = ({ variant, children }) => {
+  if (variant === "secondary") {
+    return (
+      <button className="btn btn-neutral flex items-center gap-2 text-white">
+        {children}
+      </button>
+    );
+  }
 
-export const Button = ({ type, children, onClick, className }) => {
   return (
-    <button type={type} onClick={onClick} className={`btn ${className}`}>
+    <button className="bg-yellow-400 flex items-center gap-2 text-black">
       {children}
     </button>
   );
-};
-
-Button.propTypes = {
-  type: PropTypes.oneOf(["button", "submit", "reset"]),
-  children: PropTypes.node.isRequired,
-  onClick: PropTypes.func,
-  className: PropTypes.string,
-};
-
-Button.defaultProps = {
-  type: "button",
-  onClick: () => {},
-  className: "",
 };
