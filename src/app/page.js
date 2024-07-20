@@ -1,7 +1,7 @@
 import { FilterCommunityBySportType } from "@/components/search-filter/filter.community.sport-type";
 import { SearchCommunityByCity } from "@/components/search-filter/search.community.city";
 import { CommunityCard } from "@/components/cards/card.community";
-import { PageTemplate } from "@/components/page-template";
+import { PageTemplate } from "@/components/template/page-template";
 import { getAllPublicCommunities } from "@/services/community.service";
 
 export default async function Home({ searchParams }) {
@@ -19,6 +19,7 @@ export default async function Home({ searchParams }) {
           Temukan Komunitas Yang Sesuai Dengan Dirimu
         </h2>
         <section className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 justify-items-center">
+          {communities.length == 0 && <h2 className="font-bold text-xl">Komunitas tidak ditemukan</h2>}
           {communities.map((item) => (
             <CommunityCard
               name={item.name}
