@@ -15,7 +15,7 @@ export const getAllPublicCommunities = async (sportType, city) => {
         city: true,
         sport_type: true,
         is_private: true,
-        community_image_profile: true
+        community_image_profile: true,
       },
     });
 
@@ -36,7 +36,7 @@ export const getAllPublicCommunities = async (sportType, city) => {
         city: true,
         sport_type: true,
         is_private: true,
-        community_image_profile: true
+        community_image_profile: true,
       },
     });
 
@@ -67,7 +67,7 @@ export const getAllPublicCommunities = async (sportType, city) => {
         city: true,
         sport_type: true,
         is_private: true,
-        community_image_profile: true
+        community_image_profile: true,
       },
     });
     return communities;
@@ -80,9 +80,52 @@ export const getAllPublicCommunities = async (sportType, city) => {
       city: true,
       sport_type: true,
       is_private: true,
-      community_image_profile: true
+      community_image_profile: true,
     },
   });
 
   return communities;
+};
+
+export const getCommunityDetailById = async (communityId) => {
+  const community = await prisma.community.findFirst({
+    where: {
+      community_id: communityId,
+    },
+    include: {
+      communityMembers: true,
+    },
+  });
+
+  return community;
+};
+
+export const addCommunityMember = async (userId, communityId) => {
+  await prisma.communityMember.create({
+    data: {
+      user_id: userId,
+      community_id: communityId,
+    },
+  });
+};
+
+export const checkCommunityMember = async (userId, communityId) => {
+  const member = await prisma.communityMember.findFirst({
+    where: {
+      AND: [
+        {
+          user_id: {
+            equals: userId,
+          },
+        },
+        {
+          community_id: {
+            equals: communityId,
+          },
+        },
+      ],
+    },
+  });
+
+  return member;
 };

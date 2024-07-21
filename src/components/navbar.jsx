@@ -2,8 +2,12 @@
 import { logoutAction } from "@/app/action";
 import toast from "react-hot-toast";
 import { useEffect, useActionState } from "react";
+import { usePathname } from "next/navigation";
+
 export const Navbar = ({ user }) => {
   const [state, formAction, pending] = useActionState(logoutAction, null);
+  const pathname = usePathname();
+  console.log("this is pathname", pathname);
   useEffect(() => {
     if (state?.status === "success") {
       toast.success(state?.message);
@@ -13,7 +17,7 @@ export const Navbar = ({ user }) => {
   }, [state]);
   return (
     <>
-      <div className="navbar bg-dark-navy-theme lg:px-10">
+      <div className="navbar bg-dark-navy-theme lg:px-10 fixed top-0">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -39,7 +43,7 @@ export const Navbar = ({ user }) => {
               {user && (
                 <>
                   <li>
-                    <a>Home</a>
+                    <a href="/">Home</a>
                   </li>
                   <li>
                     <a>My Community</a>
@@ -80,16 +84,44 @@ export const Navbar = ({ user }) => {
           {user && (
             <ul className="menu menu-horizontal px-1">
               <li>
-                <a>Home</a>
+                <a
+                  href="/"
+                  className={`visited:text-white ${
+                    pathname === "/" ? "underline" : ""
+                  }`}
+                >
+                  Home
+                </a>
               </li>
               <li>
-                <a>My Community</a>
+                <a
+                  href="/community/my-community"
+                  className={`visited:text-white ${
+                    pathname === "/community/my-community" ? "underline" : ""
+                  }`}
+                >
+                  My Community
+                </a>
               </li>
               <li>
-                <a>Upcoming Event</a>
+                <a
+                  href="/event/upcoming-event"
+                  className={`visited:text-white ${
+                    pathname === "/event/upcoming-event" ? "underline" : ""
+                  }`}
+                >
+                  Upcoming Event
+                </a>
               </li>
               <li>
-                <a>Create Community</a>
+                <a
+                  href="/community/create"
+                  className={`visited:text-white ${
+                    pathname === "/community/create" ? "underline" : ""
+                  }`}
+                >
+                  Create Community
+                </a>
               </li>
             </ul>
           )}
@@ -120,6 +152,7 @@ export const Navbar = ({ user }) => {
               </div>
               <form action={formAction}>
                 <button className="btn bg-yellow-theme hover:bg-yellow-theme">
+                  {pending && <span className="loading loading-spinner"></span>}
                   Logout
                 </button>
               </form>

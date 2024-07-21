@@ -10,7 +10,7 @@ export default async function Home({ searchParams }) {
 
   return (
     <PageTemplate>
-      <main className="mt-6 container mx-auto p-4 md:p-6">
+      <main className="mt-6 container mx-auto py-20 px-4 md:px-16">
         <section className="flex flex-col md:flex-row justify-center items-center gap-2 lg:gap-4">
           <FilterCommunityBySportType />
           <SearchCommunityByCity />
@@ -18,7 +18,7 @@ export default async function Home({ searchParams }) {
         <h2 className="text-xl lg:text-2xl font-bold mt-10">
           Temukan Komunitas Yang Sesuai Dengan Dirimu
         </h2>
-        <section className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 justify-items-center">
+        <section className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {communities.length == 0 && <h2 className="font-bold text-xl">Komunitas tidak ditemukan</h2>}
           {communities.map((item) => (
             <CommunityCard
