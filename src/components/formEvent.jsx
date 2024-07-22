@@ -27,7 +27,9 @@ export const FormEvent = ({ communityId }) => {
             <span className="text-xs">Back</span>
           </button>
         </Link>
-        <h2 className="text-3xl font-bold text-center mb-6">Create event</h2>
+        <h2 className="text-3xl font-bold text-center mb-6">
+          Create Your Event
+        </h2>
         <div className="m-auto max-w-xl space-y-2">
           <h3 className="text-lg font-medium">Event Details</h3>
 
@@ -45,30 +47,47 @@ export const FormEvent = ({ communityId }) => {
 
           <label>
             <div className="label">
-              <span className="label-text">Date</span>
+              <span className="label-text">Start Date</span>
               <span className="text-red-500 ml-1">*</span>
             </div>
-            <input type="date" className="w-full px-3 py-2 border rounded-lg" />
+            <input
+              type="datetime-local"
+              className="w-full px-3 py-2 border rounded-lg"
+            />
+          </label>
+
+          <label>
+            <div className="label">
+              <span className="label-text">End Date</span>
+              <span className="text-red-500 ml-1">*</span>
+            </div>
+            <input
+              type="datetime-local"
+              className="w-full px-3 py-2 border rounded-lg"
+            />
+          </label>
+
+          <label>
+            <div className="label">
+              <span className="label-text">Registration Deadline</span>
+              <span className="text-red-500 ml-1">*</span>
+            </div>
+            <input
+              type="datetime-local"
+              className="w-full px-3 py-2 border rounded-lg"
+            />
           </label>
 
           <label className="form-control w-full">
             <div className="label">
-              <span className="label-text">City</span>
+              <span className="label-text">Location</span>
               <span className="text-red-500 ml-1">*</span>
             </div>
-            <select className="select select-bordered select-md w-full">
-              <option disabled selected></option>
-              <option>Bandung</option>
-              <option>Jakarta</option>
-              <option>Malang</option>
-              <option>Salatiga</option>
-              <option>Semarang</option>
-              <option>Solo</option>
-              <option>Surabaya</option>
-              <option>Tangerang</option>
-              <option>Tangerang Selatan</option>
-              <option>Yogyakarta</option>
-            </select>
+            <input
+              type="text"
+              placeholder="Type here"
+              className="input input-bordered input-md w-full"
+            />
           </label>
 
           <label className="form-control w-full">

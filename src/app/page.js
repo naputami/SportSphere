@@ -19,7 +19,9 @@ export default async function Home({ searchParams }) {
           Temukan Komunitas Yang Sesuai Dengan Dirimu
         </h2>
         <section className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 justify-items-center">
-          {communities.length == 0 && <h2 className="font-bold text-xl">Komunitas tidak ditemukan</h2>}
+          {communities.length == 0 && (
+            <h2 className="font-bold text-xl">Komunitas tidak ditemukan</h2>
+          )}
           {communities.map((item) => (
             <CommunityCard
               name={item.name}
