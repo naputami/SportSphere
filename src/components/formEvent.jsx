@@ -1,12 +1,13 @@
 "use client";
 
-import React, { useActionState } from "react";
-import { useRouter } from "next/router";
+import { useActionState } from "react";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/button";
-import { Footer } from "@/components/footer";
+import Link from "next/link";
 
-export default function Page() {
+export const FormEvent = ({ communityId }) => {
   const [state, pending] = useActionState(null);
+  const router = useRouter();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -16,19 +17,16 @@ export default function Page() {
 
   return (
     <div className="bg-gray-100 flex items-center justify-center min-h-screen p-4 ">
-      <head>
-        <title>Create Event</title>
-      </head>
       <form className="bg-white px-5 py-5 rounded-lg shadow-md w-full max-w-2xl m-4">
-        <div className="m-auto">
+        <Link href={`/community/${communityId}`} className="m-auto">
           <button
+            type="button"
             className="flex items-center text-gray-950 hover:text-gray-700 focus:outline-none"
-            onClick={() => router.back()}
           >
             <span className="text-gray-500 mr-2">&larr;</span>
             <span className="text-xs">Back</span>
           </button>
-        </div>
+        </Link>
         <h2 className="text-3xl font-bold text-center mb-6">Create event</h2>
         <div className="m-auto max-w-xl space-y-2">
           <h3 className="text-lg font-medium">Event Details</h3>
@@ -136,10 +134,8 @@ export default function Page() {
           {!state?.success && <p>{state?.message}</p>}
           {state?.success && <p>{state?.message}</p>}
         </div>
-        <div className="mt-8">
-          <Footer />
-        </div>
+        <div className="mt-8"></div>
       </form>
     </div>
   );
-}
+};
