@@ -19,7 +19,9 @@
     "jsonwebtoken": "^9.0.2",
     "next": "15.0.0-canary.63",
     "react": "19.0.0-rc.0",
-    "react-dom": "19.0.0-rc.0"
+    "react-dom": "19.0.0-rc.0",
+    "react-hot-toast": "^2.4.1",
+    "use-debounce": "^10.0.1"
   },
   "devDependencies": {
     "daisyui": "^4.12.10",
