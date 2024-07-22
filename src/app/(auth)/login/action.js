@@ -12,15 +12,23 @@ export async function loginAction(_, formData) {
 
   if (!email || !password) {
     return {
-      success: "false",
+      success: false,
       message: "All fields are required",
+      data: {
+        email: email,
+        password: password,
+      },
     };
   }
 
   if (password.length < 6) {
     return {
-      success: "false",
+      success: false,
       message: "Password must be at least 6 characters long",
+      data: {
+        email: email,
+        password: password,
+      },
     };
   }
 
@@ -34,6 +42,10 @@ export async function loginAction(_, formData) {
     return {
       success: false,
       message: "User not found",
+      data: {
+        email: email,
+        password: password,
+      },
     };
   }
 
@@ -43,6 +55,10 @@ export async function loginAction(_, formData) {
     return {
       success: false,
       message: "Wrong password",
+      data: {
+        email: email,
+        password: password,
+      },
     };
   }
 

@@ -10,14 +10,14 @@ export async function registerAction(_, formData) {
 
   if (!name || !email || !password) {
     return {
-      success: "false",
+      success: false,
       message: "All fields are required",
     };
   }
 
   if (password.length < 6) {
     return {
-      success: "false",
+      success: false,
       message: "Password must be at least 6 characters",
     };
   }
@@ -33,14 +33,14 @@ export async function registerAction(_, formData) {
     });
 
     return {
-      success: "true",
+      success: true,
       message: "Register success, please login",
     };
   } catch (error) {
     console.log(error);
 
     return {
-      success: "false",
+      success: false,
       message: "Something went wrong",
     };
   }
