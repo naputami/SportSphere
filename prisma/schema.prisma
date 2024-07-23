@@ -44,8 +44,11 @@ model CommunityMember {
 model Event {
   event_id String @id @default(cuid())
   name String
-  date DateTime
+  start_time DateTime
+  end_time DateTime
+  registration_deadline DateTime?
   location String
+  gmap_link String?
   quota Int
   fee Int
   event_image String

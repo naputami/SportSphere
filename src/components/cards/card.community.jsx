@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { getDisplayedSportType } from "@/libs/getDisplayedSportType";
 
 export const CommunityCard = ({
   name,
@@ -10,8 +10,7 @@ export const CommunityCard = ({
   communityId,
 }) => {
   return (
-    <Link href={`/community/${communityId}`}>
-      <div className="card card-compact bg-base-100 w-72 md:w-80 lg:w-96 shadow-xl">
+      <div className="card card-compact bg-base-100 w-full shadow-xl static">
         <figure className="md:h-40 lg:h-48">
           <Image
             src={`${process.env.R2_PUBLIC_URL}/communities/${communityId}/${imageTitle}`}
@@ -22,7 +21,7 @@ export const CommunityCard = ({
         </figure>
         <div className="card-body gap-0">
           <div className="flex justify-between">
-              <h2 className="card-title m-0 hover:underline">{name}</h2>
+              <a href={`/community/${communityId}`} className="card-title m-0 hover:underline">{name}</a>
             <button className="btn btn-circle btn-ghost btn-sm">
               <svg
                 width="20"
@@ -40,12 +39,11 @@ export const CommunityCard = ({
           </div>
           <div className="flex justify-between mt-1">
             <p className="w-fit">
-              {sportType} | {city}
+              {getDisplayedSportType(sportType)} | {city}
             </p>
             {isPrivate && <div className="badge badge-outline">Private</div>}
           </div>
         </div>
       </div>
-    </Link>
   );
 };
