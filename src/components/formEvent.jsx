@@ -1,12 +1,13 @@
 "use client";
 
-import React, { useActionState } from "react";
-import { useRouter } from "next/router";
+import { useActionState } from "react";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/button";
-import { Footer } from "@/components/footer";
+import Link from "next/link";
 
-export default function Page() {
+export const FormEvent = ({ communityId }) => {
   const [state, pending] = useActionState(null);
+  const router = useRouter();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -16,20 +17,19 @@ export default function Page() {
 
   return (
     <div className="bg-gray-100 flex items-center justify-center min-h-screen p-4 ">
-      <head>
-        <title>Create Event</title>
-      </head>
       <form className="bg-white px-5 py-5 rounded-lg shadow-md w-full max-w-2xl m-4">
-        <div className="m-auto">
+        <Link href={`/community/${communityId}`} className="m-auto">
           <button
+            type="button"
             className="flex items-center text-gray-950 hover:text-gray-700 focus:outline-none"
-            onClick={() => router.back()}
           >
             <span className="text-gray-500 mr-2">&larr;</span>
             <span className="text-xs">Back</span>
           </button>
-        </div>
-        <h2 className="text-3xl font-bold text-center mb-6">Create event</h2>
+        </Link>
+        <h2 className="text-3xl font-bold text-center mb-6">
+          Create Your Event
+        </h2>
         <div className="m-auto max-w-xl space-y-2">
           <h3 className="text-lg font-medium">Event Details</h3>
 
@@ -47,30 +47,47 @@ export default function Page() {
 
           <label>
             <div className="label">
-              <span className="label-text">Date</span>
+              <span className="label-text">Start Date</span>
               <span className="text-red-500 ml-1">*</span>
             </div>
-            <input type="date" className="w-full px-3 py-2 border rounded-lg" />
+            <input
+              type="datetime-local"
+              className="w-full px-3 py-2 border rounded-lg"
+            />
+          </label>
+
+          <label>
+            <div className="label">
+              <span className="label-text">End Date</span>
+              <span className="text-red-500 ml-1">*</span>
+            </div>
+            <input
+              type="datetime-local"
+              className="w-full px-3 py-2 border rounded-lg"
+            />
+          </label>
+
+          <label>
+            <div className="label">
+              <span className="label-text">Registration Deadline</span>
+              <span className="text-red-500 ml-1">*</span>
+            </div>
+            <input
+              type="datetime-local"
+              className="w-full px-3 py-2 border rounded-lg"
+            />
           </label>
 
           <label className="form-control w-full">
             <div className="label">
-              <span className="label-text">City</span>
+              <span className="label-text">Location</span>
               <span className="text-red-500 ml-1">*</span>
             </div>
-            <select className="select select-bordered select-md w-full">
-              <option disabled selected></option>
-              <option>Bandung</option>
-              <option>Jakarta</option>
-              <option>Malang</option>
-              <option>Salatiga</option>
-              <option>Semarang</option>
-              <option>Solo</option>
-              <option>Surabaya</option>
-              <option>Tangerang</option>
-              <option>Tangerang Selatan</option>
-              <option>Yogyakarta</option>
-            </select>
+            <input
+              type="text"
+              placeholder="Type here"
+              className="input input-bordered input-md w-full"
+            />
           </label>
 
           <label className="form-control w-full">
@@ -136,10 +153,8 @@ export default function Page() {
           {!state?.success && <p>{state?.message}</p>}
           {state?.success && <p>{state?.message}</p>}
         </div>
-        <div className="mt-8">
-          <Footer />
-        </div>
+        <div className="mt-8"></div>
       </form>
     </div>
   );
-}
+};
