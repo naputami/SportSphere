@@ -18,7 +18,7 @@ export default async function Page({ params }) {
 
   return (
     <PageTemplate>
-      <main className="mt-6 container mx-auto py-20 px-6 md:px-16">
+      <main className="mt-6 container mx-auto px-6 md:px-16">
         <a className="btn btn-ghost" href="/">
           <svg
             width="24"

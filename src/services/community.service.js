@@ -127,5 +127,9 @@ export const checkCommunityMember = async (userId, communityId) => {
     },
   });
 
-  return member;
+  if (member) {
+    return true;
+  }
+
+  return false;
 };

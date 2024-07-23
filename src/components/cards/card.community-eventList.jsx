@@ -56,6 +56,10 @@ export const CommunityEventListCard = ({
       return true;
     }
 
+    if(participantCount == quota){
+      return true;
+    }
+
     return false
   }
   return (
@@ -86,6 +90,7 @@ export const CommunityEventListCard = ({
           <form action={formAction}>
             <input type="hidden" value={userId} name="userId" />
             <input type="hidden" value={eventId} name="eventId" />
+            <input type="hidden" value={communityId} name="communityId" />
             <button
               className="btn bg-yellow-theme hover:bg-yellow-theme"
               disabled={disableButton()}

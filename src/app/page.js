@@ -10,7 +10,7 @@ export default async function Home({ searchParams }) {
 
   return (
     <PageTemplate>
-      <main className="mt-6 container mx-auto py-20 px-4 md:px-16">
+      <main className="mt-6 container mx-auto px-4 md:px-16">
         <section className="flex flex-col md:flex-row justify-center items-center gap-2 lg:gap-4">
           <FilterCommunityBySportType />
           <SearchCommunityByCity />

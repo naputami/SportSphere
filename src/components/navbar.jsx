@@ -17,7 +17,7 @@ export const Navbar = ({ user }) => {
   }, [state]);
   return (
     <>
-      <div className="navbar bg-dark-navy-theme lg:px-10 fixed top-0">
+      <div className="navbar bg-dark-navy-theme lg:px-10">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
