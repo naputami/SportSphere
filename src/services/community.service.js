@@ -93,7 +93,11 @@ export const getCommunityDetailById = async (communityId) => {
       community_id: communityId,
     },
     include: {
-      communityMembers: true,
+      communityMembers: {
+        select: {
+          user_id: true,
+        },
+      },
     },
   });
 

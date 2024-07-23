@@ -27,7 +27,7 @@ export const CommunityEventListCard = ({
   useEffect(() => {
     if (state?.status === "success") {
       toast.success(state?.message);
-      router.push(`/community/${communityId}`)
+      router.push(`/community/${communityId}`);
     } else if (state?.status === "error") {
       toast.error(state?.message);
     }
@@ -44,24 +44,24 @@ export const CommunityEventListCard = ({
     return isRegistration;
   };
   const disableButton = () => {
-    if(checkRegistrationDeadline(registrationDeadline)){
-      return true
-    }
-
-    if(state?.status  === "success"){
-      return true
-    }
-
-    if(pending){
+    if (checkRegistrationDeadline(registrationDeadline)) {
       return true;
     }
 
-    if(participantCount == quota){
+    if (state?.status === "success") {
       return true;
     }
 
-    return false
-  }
+    if (pending) {
+      return true;
+    }
+
+    if (participantCount == quota) {
+      return true;
+    }
+
+    return false;
+  };
   return (
     <div className="card card-compact bg-base-100 w-full shadow-xl static">
       <figure className="md:h-40 lg:h-48">
@@ -91,10 +91,7 @@ export const CommunityEventListCard = ({
             <input type="hidden" value={userId} name="userId" />
             <input type="hidden" value={eventId} name="eventId" />
             <input type="hidden" value={communityId} name="communityId" />
-            <button
-              className="btn bg-yellow-theme hover:bg-yellow-theme"
-              disabled={disableButton()}
-            >
+            <button className="btn bg-yellow-theme hover:bg-yellow-theme" disabled={disableButton()}>
               {pending && <span className="loading loading-spinner"></span>}
               Join Event
             </button>
