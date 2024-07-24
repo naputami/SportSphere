@@ -1,4 +1,5 @@
 import { prisma } from "@/utils/prisma";
+import { fetchExternalImage } from "next/dist/server/image-optimizer";
 
 export const getEventListByCommunityId = async (communityId) => {
   const result = await prisma.event.findMany({
@@ -46,7 +47,6 @@ export const addEventParticipant = async (eventId, userId) => {
   if (checkParticipant) {
     throw new Error("You've already joined this event");
   }
-
 
   await prisma.eventParticipant.create({
     data: {
