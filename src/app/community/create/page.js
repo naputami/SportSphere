@@ -1,9 +1,11 @@
-import React from 'react'
+import { Footer } from "@/components/footer";
+import { FormCommunity } from "@/components/formCommunity";
 
-export default function Page() {
+export default function Page({}) {
   return (
-    <div>
-      <p>ini form create communityId</p>
-    </div>
-  )
+    <main>
+      <FormCommunity/>
+      <Footer />
+    </main>
+  );
 }
