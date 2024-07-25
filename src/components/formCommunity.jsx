@@ -154,7 +154,7 @@ export const FormCommunity = () => {
               <span className="label-text">Community Description</span>
               <span className="text-red-500 ml-1">*</span>
             </div>
-            <input
+            <textarea
               type="text"
               name="communityDescription"
               placeholder="Describe what's special about your community and other important details"

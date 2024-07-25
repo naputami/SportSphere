@@ -50,7 +50,7 @@ export async function CreateCommunity(formData) {
     await uploadFile({
         key: file.name,
         body: file,
-        folder: `communities/${community.id}`,
+        folder: `communities/${community.community_id}`,
     });
 
     return {
