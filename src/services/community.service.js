@@ -137,3 +137,43 @@ export const checkCommunityMember = async (userId, communityId) => {
 
   return false;
 };
+
+export const getCommunityByUserId = async (userId) => {
+  const result = await prisma.community.findMany({
+    where: {
+      user_id: userId,
+    },
+    select: {
+      community_id: true,
+      name: true,
+      sport_type: true,
+      city: true,
+      is_private: true,
+      community_image_profile: true,
+    },
+  });
+  return result;
+};
+
+
+export const getMyCommunityByUserId = async (userId) => {
+  const result = await prisma.communityMember.findMany({
+    where: {
+      user_id: userId,
+    },
+    select: {
+      community: {
+        select: {
+          name: true,
+          community_id: true,
+          city: true,
+          sport_type: true,
+          user_id: true,
+          community_image_profile: true,
+        },
+      },
+    },
+  });
+
+  return result;
+};
