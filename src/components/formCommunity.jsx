@@ -1,22 +1,51 @@
 "use client";
 
+import { CreateCommunity } from "@/app/community/create/action"
+import { useEffect, useState } from "react";
 import { useActionState } from "react";
-import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 import { Button } from "@/components/button";
 import Link from "next/link";
 
-export const FormCommunity = ({}) => {
-  const [state, pending] = useActionState(null);
+export const FormCommunity = () => {
+  const [state, formAction, pending] = useActionState(CreateCommunity, null);
+  const [formData, setFormData] = useState({
+    communityName: "",
+    sportType: "",
+    city: "",
+    file: null,
+    setPrivate: "",
+    communityDescription: "",
+  });
 
-  const handleSubmit = (community) => {
-    community.preventDefault();
+  useEffect(() => {
+    if (state?.status === "success") {
+      toast.success(state?.message);
+    } else if (state?.status === "error") {
+      toast.error(state?.message);
+    }
+  }, [state]);
+
+  const handleChange = (e) => {
+    const { name, value, files } = e.target;
+    if (files) {
+      setFormData((prevData) => ({ ...prevData, [name]: files[0] }));
+    } else {
+      setFormData((prevData) => ({ ...prevData, [name]: value }));
+    }
   };
 
-  const handleFileChange = (community) => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    formAction(formData);
+  };
 
   return (
-    <div className="bg-gray-100 flex items-center justify-center min-h-screen p-4 ">
-      <form className="bg-white px-5 py-5 rounded-lg shadow-md w-full max-w-2xl m-4">
+    <div className="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white px-5 py-5 rounded-lg shadow-md w-full max-w-2xl m-4"
+      >
         <Link href={`/`} className="m-auto">
           <button
             type="button"
@@ -39,8 +68,11 @@ export const FormCommunity = ({}) => {
             </div>
             <input
               type="text"
+              name="communityName"
               placeholder="Type here"
               className="input input-bordered input-md w-full"
+              value={formData.communityName}
+              onChange={handleChange}
             />
           </label>
 
@@ -51,8 +83,11 @@ export const FormCommunity = ({}) => {
             </div>
             <input
               type="text"
+              name="sportType"
               placeholder="Type here"
               className="input input-bordered input-md w-full"
+              value={formData.sportType}
+              onChange={handleChange}
             />
           </label>
 
@@ -63,8 +98,11 @@ export const FormCommunity = ({}) => {
             </div>
             <input
               type="text"
+              name="city"
               placeholder="Type here"
               className="input input-bordered input-md w-full"
+              value={formData.city}
+              onChange={handleChange}
             />
           </label>
 
@@ -75,8 +113,10 @@ export const FormCommunity = ({}) => {
             </div>
             <input
               type="file"
-              accept="png"
+              name="file"
+              accept=".jpg,.jpeg,.png"
               className="file-input file-input-bordered w-full"
+              onChange={handleChange}
             />
           </label>
 
@@ -92,6 +132,7 @@ export const FormCommunity = ({}) => {
                   name="setPrivate"
                   value="yes"
                   className="radio radio-md"
+                  onChange={handleChange}
                 />
                 <span>Yes</span>
               </label>
@@ -101,6 +142,7 @@ export const FormCommunity = ({}) => {
                   name="setPrivate"
                   value="no"
                   className="radio radio-md"
+                  onChange={handleChange}
                 />
                 <span>No</span>
               </label>
@@ -114,20 +156,25 @@ export const FormCommunity = ({}) => {
             </div>
             <input
               type="text"
+              name="communityDescription"
               placeholder="Describe what's special about your community and other important details"
               className="input input-bordered input-md w-full"
+              value={formData.communityDescription}
+              onChange={handleChange}
             />
           </label>
         </div>
-        
+
         <div className="flex justify-end mt-4">
-          <Button variant="secondary" disabled={pending}>
+          <Button variant="secondary" type="submit" disabled={pending}>
             Submit
           </Button>
-          {!state?.success && <p>{state?.message}</p>}
-          {state?.success && <p>{state?.message}</p>}
+          {state && (
+            <p className={state.status === "success" ? "text-green-500" : "text-red-500"}>
+              {state.message}
+            </p>
+          )}
         </div>
-        <div className="mt-8"></div>
       </form>
     </div>
   );
