@@ -3,7 +3,7 @@
 import { prisma } from "@/utils/prisma";
 import { uploadFile } from "@/libs/uploadFile";
 
-export async function CreateCommunity(formData) {
+export async function CreateCommunity(_, formData) {
     const communityName = formData.get("communityName");
     const sportType = formData.get("sportType");
     const city = formData.get("city");
