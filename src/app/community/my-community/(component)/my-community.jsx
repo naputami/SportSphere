@@ -40,6 +40,7 @@ export const MyCommunity = ({ userId, data }) => {
                 city={community.city}
                 imageTitle={community.community_image_profile}
                 sportType={community.sport_type}
+                isPrivate={community.is_private}
               />
             ))}
         {!isFiltered && data.length != 0 &&
@@ -51,6 +52,7 @@ export const MyCommunity = ({ userId, data }) => {
               city={community.city}
               imageTitle={community.community_image_profile}
               sportType={community.sport_type}
+              isPrivate={community.is_private}
             />
           ))}
       </div>

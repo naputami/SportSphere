@@ -185,6 +185,7 @@ export const getMyCommunityByUserId = async (userId) => {
           sport_type: true,
           user_id: true,
           community_image_profile: true,
+          is_private: true
         },
       },
     },
