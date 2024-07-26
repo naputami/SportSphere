@@ -8,6 +8,9 @@ export const getAllPublicCommunities = async (sportType, city) => {
           equals: sportType ?? "",
           mode: "insensitive",
         },
+        is_private: {
+          equals: false,
+        },
       },
       select: {
         community_id: true,
@@ -28,6 +31,9 @@ export const getAllPublicCommunities = async (sportType, city) => {
         city: {
           contains: city ?? "",
           mode: "insensitive",
+        },
+        is_private: {
+          equals: false,
         },
       },
       select: {
@@ -59,6 +65,11 @@ export const getAllPublicCommunities = async (sportType, city) => {
               mode: "insensitive",
             },
           },
+          {
+            is_private: {
+              equals: false,
+            },
+          },
         ],
       },
       select: {
@@ -81,6 +92,11 @@ export const getAllPublicCommunities = async (sportType, city) => {
       sport_type: true,
       is_private: true,
       community_image_profile: true,
+    },
+    where: {
+      is_private: {
+        equals: false,
+      },
     },
   });
 
@@ -154,7 +170,6 @@ export const getCommunityByUserId = async (userId) => {
   });
   return result;
 };
-
 
 export const getMyCommunityByUserId = async (userId) => {
   const result = await prisma.communityMember.findMany({

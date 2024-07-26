@@ -1,6 +1,8 @@
+"use client";
 import Image from "next/image";
 import { getDisplayedSportType } from "@/libs/getDisplayedSportType";
 import Link from "next/link";
+import { useCommunityContext } from "@/context/community-context";
 
 export const CommunityCard = ({
   name,
@@ -10,6 +12,11 @@ export const CommunityCard = ({
   imageTitle,
   communityId,
 }) => {
+  const { setCopiedCommunityId } = useCommunityContext();
+  const handleShareButtonClick = () => {
+    setCopiedCommunityId(communityId);
+    document.getElementById('share-link').showModal()
+  };
   return (
     <div className="card card-compact bg-base-100 w-full shadow-xl static">
       <figure className="md:h-40 lg:h-48">
@@ -28,7 +35,10 @@ export const CommunityCard = ({
           >
             {name}
           </Link>
-          <button className="btn btn-circle btn-ghost btn-sm">
+          <button
+            className="btn btn-circle btn-ghost btn-sm"
+            onClick={handleShareButtonClick}
+          >
             <svg
               width="20"
               height="20"
