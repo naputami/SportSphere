@@ -31,12 +31,12 @@ export default async function Page({ params }) {
   return (
     <PageTemplate>
       <main className="mt-6 container mx-auto px-6 md:px-16">
-        <a className="btn btn-ghost" href="/">
+        <Link className="btn btn-ghost" href="/">
           <svg width="24" height="24" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M23.2592 14L10.6242 24.635M10.6242 24.635L23.2592 35.27M10.6242 24.635H38" stroke="#2B293D" stroke-width="3" stroke-linecap="round" />
           </svg>
           Back to homepage
-        </a>
+        </Link>
         <div className="w-full h-[200px] md:h-[350px] mt-4">
           <Image
             src={`${process.env.R2_PUBLIC_URL}/communities/${communityId}/${community.community_image_profile}`}
@@ -60,7 +60,7 @@ export default async function Page({ params }) {
             </p>
           </div>
           {community.user_id === user?.id && (
-            <Link href={`/community/${communityId}/createEvent`} className="btn bg-yellow-theme hover:bg-yellow-theme">
+            <Link href={`/community/${communityId}/create`} className="btn bg-yellow-theme hover:bg-yellow-theme">
               Create Event
             </Link>
           )}
