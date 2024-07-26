@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import { Button } from "@/components/button";
 import Link from "next/link";
 
-export const FormCommunity = () => {
+export const FormCommunity = ({userId}) => {
   const [state, formAction, pending] = useActionState(CreateCommunity, null);
   const [formData, setFormData] = useState({
     communityName: "",
@@ -35,15 +35,10 @@ export const FormCommunity = () => {
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    formAction(formData);
-  };
-
   return (
     <div className="bg-gray-100 flex items-center justify-center min-h-screen p-4">
-      <form
-        onSubmit={handleSubmit}
+       <form
+        action={formAction}
         className="bg-white px-5 py-5 rounded-lg shadow-md w-full max-w-2xl m-4"
       >
         <Link href={`/`} className="m-auto">
@@ -164,6 +159,7 @@ export const FormCommunity = () => {
             />
           </label>
         </div>
+        <input type="hidden" name="userId" value={userId} />`
 
         <div className="flex justify-end mt-4">
           <Button variant="secondary" type="submit" disabled={pending}>

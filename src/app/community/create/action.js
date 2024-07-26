@@ -10,6 +10,7 @@ export async function CreateCommunity(_, formData) {
     const file = formData.get("file");
     const setPrivate = formData.get("setPrivate");
     const communityDescription = formData.get("communityDescription");
+    const userId = formData.get("userId");
 
     if (
         !communityName ||
@@ -41,9 +42,10 @@ export async function CreateCommunity(_, formData) {
             name: communityName,
             sport_type: sportType,
             city: city,
-            image: file.name,
+            community_image_profile: file.name,
             is_private: setPrivate === "yes",
             description: communityDescription,
+            user_id: userId
         },
     });
 
