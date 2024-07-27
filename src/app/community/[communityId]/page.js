@@ -6,6 +6,7 @@ import {
 import Image from "next/image";
 import { serverAuth } from "@/libs/serverAuth";
 import { getDisplayedSportType } from "@/libs/getDisplayedSportType";
+import { getDisplayedCityName } from "@/libs/getDisplayedCityName";
 import { CommunityEvent } from "./community-event";
 import React from "react";
 import { prisma } from "@/utils/prisma";
@@ -78,7 +79,7 @@ export default async function Page({ params }) {
                 {community.name}
               </h1>
               <p className="text-bold text-lg md:text-xl">
-                {getDisplayedSportType(community.sport_type)} | {community.city}
+                {getDisplayedSportType(community.sport_type)} | {getDisplayedCityName(community.city)}
               </p>
             </div>
             {community.user_id === user?.id && (
