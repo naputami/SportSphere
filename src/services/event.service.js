@@ -29,7 +29,7 @@ export const getEventListByCommunityId = async (communityId) => {
 export const getEventsByUserId = async (userId) => {
   const result = await prisma.eventParticipant.findMany({
     where: {
-      user_id: userId
+      user_id: userId,
     },
     select: {
       event: {
@@ -41,14 +41,14 @@ export const getEventsByUserId = async (userId) => {
           quota: true,
           location: true,
           end_time: true,
-          fee: true
-        }
-      }
+          fee: true,
+        },
+      },
     },
   });
 
   return result;
-}
+};
 
 export const addEventParticipant = async (eventId, userId) => {
   const checkParticipant = await prisma.eventParticipant.findFirst({
@@ -78,4 +78,14 @@ export const addEventParticipant = async (eventId, userId) => {
       user_id: userId,
     },
   });
+};
+
+export const getTotalEventParticipantbyEventId = async (eventId) => {
+  const result = await prisma.eventParticipant.count({
+    where: {
+      event_id: eventId,
+    },
+  });
+
+  return result;
 };
