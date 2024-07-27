@@ -25,7 +25,7 @@ export const SearchCommunityByCity = () => {
         name="city"
         type="text"
         className="grow"
-        placeholder="Cari komunitas berdasarkan kota"
+        placeholder="Find Community by City"
         onChange={(e) => handleKeywordChange(e.target.value)}
       />
       <svg
