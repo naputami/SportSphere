@@ -1,5 +1,8 @@
 import { PageTemplate } from "@/components/template/page-template";
-import { getAllPublicCommunities, getCommunityDetailById } from "@/services/community.service";
+import {
+  getAllPublicCommunities,
+  getCommunityDetailById,
+} from "@/services/community.service";
 import Image from "next/image";
 import { serverAuth } from "@/libs/serverAuth";
 import { getDisplayedSportType } from "@/libs/getDisplayedSportType";
@@ -32,8 +35,19 @@ export default async function Page({ params }) {
     <PageTemplate>
       <main className="mt-6 container mx-auto px-6 md:px-16">
         <a className="btn btn-ghost" href="/">
-          <svg width="24" height="24" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M23.2592 14L10.6242 24.635M10.6242 24.635L23.2592 35.27M10.6242 24.635H38" stroke="#2B293D" stroke-width="3" stroke-linecap="round" />
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 50 50"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M23.2592 14L10.6242 24.635M10.6242 24.635L23.2592 35.27M10.6242 24.635H38"
+              stroke="#2B293D"
+              stroke-width="3"
+              stroke-linecap="round"
+            />
           </svg>
           Back to homepage
         </a>
@@ -60,17 +74,26 @@ export default async function Page({ params }) {
             </p>
           </div>
           {community.user_id === user?.id && (
-            <Link href={`/community/${communityId}/createEvent`} className="btn bg-yellow-theme hover:bg-yellow-theme">
+            <Link
+              href={`/community/${communityId}/createEvent`}
+              className="btn bg-yellow-theme hover:bg-yellow-theme"
+            >
               Create Event
             </Link>
           )}
         </div>
         <div className="mt-4 space-x-2">
-          <div className="badge badge-outline badge-lg">{community.communityMembers.length} people has joined</div>
-          <div className="badge badge-outline badge-lg">{totalEvent} events</div>
+          <div className="badge badge-outline badge-lg">
+            {community.communityMembers.length} people has joined
+          </div>
+          <div className="badge badge-outline badge-lg">
+            {totalEvent} events
+          </div>
         </div>
         <section className="mt-10 space-y-2">
-          <h2 className="font-bold text-md md:text-xl">Community Description</h2>
+          <h2 className="font-bold text-md md:text-xl">
+            Community Description
+          </h2>
           <p className="text-base md:text-lg">{community.description}</p>
         </section>
         <React.Suspense fallback="Loading...">

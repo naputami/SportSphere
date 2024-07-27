@@ -28,7 +28,7 @@ export const FormEvent = ({ communityId }) => {
             className="flex items-center text-gray-950 hover:text-gray-700 focus:outline-none"
           >
             <span className="text-gray-500 mr-2">&larr;</span>
-            <span className="text-xs">Back</span>
+            <span className="text-xs text-center">Back</span>
           </button>
         </Link>
         <h2 className="text-3xl font-bold text-center mb-6">
