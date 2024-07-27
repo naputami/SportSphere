@@ -1,25 +1,33 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 import { loginAction } from "./action";
 import { IconApps } from "@/components/iconApps";
 import { loginWithGoogleAction } from "../(oauth-action)/oauth.google-action";
+import toast from "react-hot-toast";
 
 export default function page() {
   const [state, formAction, pending] = useActionState(loginAction, null);
+  useEffect(() => {
+    if (state?.status === "success") {
+      toast.success(state?.message);
+    } else if (state?.status === "error") {
+      toast.error(state?.message);
+    }
+  }, [state]);
   return (
-    <div className="bg-indigo-950 w-screen h-screen grid md:grid-cols-2">
+    <div className="bg-dark-navy-theme w-screen h-screen grid md:grid-cols-2">
       <div className="hidden md:grid px-10 py-8">
         <div>
-          <a href="/">
+          <Link href="/">
             <div className="flex gap-2">
               <IconApps />
               <div className="text-yellow-400 text-2xl font-bold">
                 Sport Sphere
               </div>
             </div>
-          </a>
+          </Link>
         </div>
         <div className="text-white text-3xl w-4/5">
           Login for Sport Community recommendations around!
@@ -28,7 +36,7 @@ export default function page() {
       <div className="bg-white border-l rounded-s-3xl px-16 space-y-8 py-24">
         <div>
           {" "}
-          <div className="text-indigo-900 text-3xl font-bold">Login</div>
+          <div className="text-dark-navy-theme text-3xl font-bold">Login</div>
           <p>Welcome back, please login</p>
         </div>
         <form action={formAction} className="space-y-3">
@@ -67,25 +75,22 @@ export default function page() {
           <div>
             <button
               disabled={pending}
-              className="w-full bg-dark-navy-theme max-w-sm py-2 border rounded-full text-white my-4"
+              className="w-full bg-dark-navy-theme max-w-sm btn text-white my-4 hover:bg-dark-navy-theme"
             >
+              {pending && <span className="loading loading-spinner"></span>}
               Login
             </button>
-            {!state?.success && (
-              <p className="text-red-600">{state?.message}</p>
-            )}
-            {state?.success && <p>{state?.message}</p>}
           </div>
         </form>
         <form action={loginWithGoogleAction} className="space-y-3">
           <p>Other Method</p>
-          <button className="btn btn-neutral">Continue With Google</button>
+          <button className="btn btn-neutral text-white">Continue With Google</button>
         </form>
         <p>
           Don&apos;t have an account?{" "}
           <Link
             href="/register"
-            className="text-indigo-600 hover:underline hover:underline-offset-4"
+            className="text-dark-navy-theme hover:underline hover:underline-offset-4"
           >
             Register
           </Link>

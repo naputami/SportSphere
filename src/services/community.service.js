@@ -8,6 +8,9 @@ export const getAllPublicCommunities = async (sportType, city) => {
           equals: sportType ?? "",
           mode: "insensitive",
         },
+        is_private: {
+          equals: false,
+        },
       },
       select: {
         community_id: true,
@@ -28,6 +31,9 @@ export const getAllPublicCommunities = async (sportType, city) => {
         city: {
           contains: city ?? "",
           mode: "insensitive",
+        },
+        is_private: {
+          equals: false,
         },
       },
       select: {
@@ -59,6 +65,11 @@ export const getAllPublicCommunities = async (sportType, city) => {
               mode: "insensitive",
             },
           },
+          {
+            is_private: {
+              equals: false,
+            },
+          },
         ],
       },
       select: {
@@ -81,6 +92,11 @@ export const getAllPublicCommunities = async (sportType, city) => {
       sport_type: true,
       is_private: true,
       community_image_profile: true,
+    },
+    where: {
+      is_private: {
+        equals: false,
+      },
     },
   });
 
@@ -137,3 +153,53 @@ export const checkCommunityMember = async (userId, communityId) => {
 
   return false;
 };
+
+export const getCommunityByUserId = async (userId) => {
+  const result = await prisma.community.findMany({
+    where: {
+      user_id: userId,
+    },
+    select: {
+      community_id: true,
+      name: true,
+      sport_type: true,
+      city: true,
+      is_private: true,
+      community_image_profile: true,
+    },
+  });
+  return result;
+};
+
+export const getMyCommunityByUserId = async (userId) => {
+  const result = await prisma.communityMember.findMany({
+    where: {
+      user_id: userId,
+    },
+    select: {
+      community: {
+        select: {
+          name: true,
+          community_id: true,
+          city: true,
+          sport_type: true,
+          user_id: true,
+          community_image_profile: true,
+          is_private: true
+        },
+      },
+    },
+  });
+
+  return result;
+};
+
+export const getAllCommunityId = async () => {
+  const result = await prisma.community.findMany({
+    select: {
+      community_id: true
+    }
+  })
+
+  return result;
+}

@@ -3,6 +3,7 @@ import { logoutAction } from "@/app/action";
 import toast from "react-hot-toast";
 import { useEffect, useActionState } from "react";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 export const Navbar = ({ user }) => {
   const [state, formAction, pending] = useActionState(logoutAction, null);
@@ -43,7 +44,7 @@ export const Navbar = ({ user }) => {
               {user && (
                 <>
                   <li>
-                    <a href="/">Home</a>
+                    <Link href="/">Home</Link>
                   </li>
                   <li>
                     <a>My Community</a>
@@ -65,63 +66,63 @@ export const Navbar = ({ user }) => {
               {!user && (
                 <>
                   <li>
-                    <a href="/login">Login</a>
+                    <Link href="/login">Login</Link>
                   </li>
                   <li>
-                    <a href="/register">Register</a>
+                    <Link href="/register">Register</Link>
                   </li>
                 </>
               )}
             </ul>
           </div>
           <div className="btn btn-ghost">
-            <a href="/">
+            <Link href="/">
               <img src="/logo.svg" width={200} />
-            </a>
+            </Link>
           </div>
         </div>
         <div className="navbar-center hidden lg:flex text-white">
           {user && (
             <ul className="menu menu-horizontal px-1">
               <li>
-                <a
+                <Link
                   href="/"
                   className={`visited:text-white ${
                     pathname === "/" ? "underline" : ""
                   }`}
                 >
                   Home
-                </a>
+                </Link>
               </li>
               <li>
-                <a
+                <Link
                   href="/community/my-community"
                   className={`visited:text-white ${
                     pathname === "/community/my-community" ? "underline" : ""
                   }`}
                 >
                   My Community
-                </a>
+                </Link>
               </li>
               <li>
-                <a
+                <Link
                   href="/event/upcoming-event"
                   className={`visited:text-white ${
                     pathname === "/event/upcoming-event" ? "underline" : ""
                   }`}
                 >
                   Upcoming Event
-                </a>
+                </Link>
               </li>
               <li>
-                <a
+                <Link
                   href="/community/create"
                   className={`visited:text-white ${
                     pathname === "/community/create" ? "underline" : ""
                   }`}
                 >
                   Create Community
-                </a>
+                </Link>
               </li>
             </ul>
           )}
@@ -129,15 +130,15 @@ export const Navbar = ({ user }) => {
         <div className="navbar-end">
           {!user && (
             <div className="hidden lg:block space-x-8">
-              <a className="text-white" href="/login">
+              <Link className="text-white" href="/login">
                 Login
-              </a>
-              <a
+              </Link>
+              <Link
                 className="btn bg-yellow-theme hover:bg-yellow-theme"
                 href="/register"
               >
                 Sign up
-              </a>
+              </Link>
             </div>
           )}
           {user && (

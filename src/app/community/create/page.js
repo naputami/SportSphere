@@ -1,9 +1,13 @@
-import React from 'react'
+import { Footer } from "@/components/footer";
+import { FormCommunity } from "@/components/formCommunity";
+import { serverAuth } from "@/libs/serverAuth";
 
-export default function Page() {
+export default function Page({ }) {
+  const { id } = serverAuth();
   return (
-    <div>
-      <p>ini form create communityId</p>
-    </div>
-  )
+    <main>
+      <FormCommunity userId={id} />
+      <Footer />
+    </main>
+  );
 }
