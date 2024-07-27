@@ -26,6 +26,30 @@ export const getEventListByCommunityId = async (communityId) => {
   return result;
 };
 
+export const getEventsByUserId = async (userId) => {
+  const result = await prisma.eventParticipant.findMany({
+    where: {
+      user_id: userId
+    },
+    select: {
+      event: {
+        select: {
+          event_id: true,
+          event_image: true,
+          name: true,
+          start_time: true,
+          quota: true,
+          location: true,
+          end_time: true,
+          fee: true
+        }
+      }
+    },
+  });
+
+  return result;
+}
+
 export const addEventParticipant = async (eventId, userId) => {
   const checkParticipant = await prisma.eventParticipant.findFirst({
     where: {
