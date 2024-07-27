@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import { getDisplayedSportType } from "@/libs/getDisplayedSportType";
+import { getDisplayedCityName } from "@/libs/getDisplayedCityName";
 import Link from "next/link";
 import { useCommunityContext } from "@/context/community-context";
 
@@ -55,7 +56,7 @@ export const CommunityCard = ({
         </div>
         <div className="flex justify-between mt-1">
           <p className="w-fit">
-            {getDisplayedSportType(sportType)} | {city}
+            {getDisplayedSportType(sportType)} | {getDisplayedCityName(city)}
           </p>
           {isPrivate && <div className="badge badge-outline">Private</div>}
         </div>
