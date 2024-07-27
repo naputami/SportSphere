@@ -3,21 +3,31 @@
 import { prisma } from "@/utils/prisma";
 import { uploadFile } from "@/libs/uploadFile";
 
-export async function CreateCommunityAction(_, formData) {
-  const communityName = formData.get("communityName");
-  const sportType = formData.get("sportType");
-  const city = formData.get("city");
+export async function CreateEventAction(_, formData) {
+  const eventName = formData.get("eventName");
+  const startDate = formData.get("startDate");
+  const endDate = formData.get("endDate");
+  const registrationDeadline = formData.get("registrationDeadline");
+  const location = formData.get("location");
+  const url = formData.get("url");
   const file = formData.get("file");
-  const setPrivate = formData.get("setPrivate");
-  const communityDescription = formData.get("communityDescription");
+  const quota = formData.get("quota");
+  const fee = formData.get("fee");
+  const communityId = formData.get("communityId");
+  const note = formData.get("note");
 
   if (
-    !communityName ||
-    !sportType ||
-    !city ||
+    !eventName ||
+    !startDate ||
+    !endDate ||
+    !registrationDeadline ||
+    !location ||
+    !url ||
     !file ||
-    !setPrivate ||
-    !communityDescription
+    !quota ||
+    !fee ||
+    !communityId ||
+    !note
   ) {
     return {
       status: "error",
@@ -26,36 +36,40 @@ export async function CreateCommunityAction(_, formData) {
   }
 
   if (
-    file.type !== "image/jpg" &&
-    file.type !== "image/png" &&
-    file.type !== "image/jpeg"
+    file.type != "image/jpg" &&
+    file.type != "image/png" &&
+    file.type != "image/jpeg"
   ) {
     return {
       status: "error",
-      message: "File extension is not allowed",
+      message: "File extention is not allowed",
     };
   }
 
-  const community = await prisma.community.create({
+  const event = await prisma.event.create({
     data: {
-      name: communityName,
-      city: city,
-      sport_type: sportType,
-      description: communityDescription,
-      community_image_profile: file.name,
-      is_private: setPrivate === "yes",
+      name: eventName,
+      start_time: new Date(startDate).toISOString(),
+      end_time: new Date(endDate).toISOString(),
+      registration_deadline: new Date(registrationDeadline).toISOString(),
+      location: location,
+      gmap_link: url,
+      event_image: file.name,
+      quota: Number(quota),
+      fee: Number(fee),
+      community_id: communityId,
+      additional_note: note,
     },
   });
 
   await uploadFile({
     key: file.name,
     body: file,
-    folder: `communities/${community.community_id}`,
+    folder: `events/${event.event_id}`,
   });
 
   return {
     status: "success",
-    message: `Community is successfully created as ${setPrivate === "yes" ? "private" : "public"
-      }`,
+    message: "Event is successfully created",
   };
 }

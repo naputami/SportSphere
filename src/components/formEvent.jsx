@@ -1,22 +1,27 @@
 "use client";
 
-import { useActionState } from "react";
-import { useRouter } from "next/navigation";
+import { CreateEventAction } from "@/app/community/[communityId]/create/action";
+import toast from "react-hot-toast";
+import { useEffect, useActionState } from "react";
 import { Button } from "@/components/button";
 import Link from "next/link";
 
 export const FormEvent = ({ communityId }) => {
-  const [state, pending] = useActionState(null);
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-  };
-
-  const handleFileChange = (event) => {};
+  const [state, formAction, pending] = useActionState(CreateEventAction, null);
+  useEffect(() => {
+    if (state?.status === "success") {
+      toast.success(state?.message);
+    } else if (state?.status === "error") {
+      toast.error(state?.message);
+    }
+  }, [state]);
 
   return (
     <div className="bg-gray-100 flex items-center justify-center min-h-screen p-4 ">
-      <form className="bg-white px-5 py-5 rounded-lg shadow-md w-full max-w-2xl m-4">
+      <form
+        action={formAction}
+        className="bg-white px-5 py-5 rounded-lg shadow-md w-full max-w-2xl m-4"
+      >
         <Link href={`/community/${communityId}`} className="m-auto">
           <button
             type="button"
@@ -41,6 +46,7 @@ export const FormEvent = ({ communityId }) => {
               type="text"
               placeholder="Type here"
               className="input input-bordered input-md w-full"
+              name="eventName"
             />
           </label>
 
@@ -52,6 +58,7 @@ export const FormEvent = ({ communityId }) => {
             <input
               type="datetime-local"
               className="w-full px-3 py-2 border rounded-lg"
+              name="startDate"
             />
           </label>
 
@@ -63,6 +70,7 @@ export const FormEvent = ({ communityId }) => {
             <input
               type="datetime-local"
               className="w-full px-3 py-2 border rounded-lg"
+              name="endDate"
             />
           </label>
 
@@ -74,6 +82,7 @@ export const FormEvent = ({ communityId }) => {
             <input
               type="datetime-local"
               className="w-full px-3 py-2 border rounded-lg"
+              name="registrationDeadline"
             />
           </label>
 
@@ -86,6 +95,7 @@ export const FormEvent = ({ communityId }) => {
               type="text"
               placeholder="Type here"
               className="input input-bordered input-md w-full"
+              name="location"
             />
           </label>
 
@@ -98,6 +108,7 @@ export const FormEvent = ({ communityId }) => {
               type="text"
               placeholder="Put url or detail location"
               className="input input-bordered input-md w-full"
+              name="url"
             />
           </label>
 
@@ -108,8 +119,8 @@ export const FormEvent = ({ communityId }) => {
             </div>
             <input
               type="file"
-              accept="png"
               className="file-input file-input-bordered w-full"
+              name="file"
             />
           </label>
 
@@ -122,6 +133,7 @@ export const FormEvent = ({ communityId }) => {
               type="text"
               placeholder="Enter quota"
               className="input input-bordered input-md w-full"
+              name="quota"
             />
           </label>
 
@@ -131,9 +143,10 @@ export const FormEvent = ({ communityId }) => {
               <span className="text-red-500 ml-1">*</span>
             </div>
             <input
-              type="text"
-              placeholder="Enter fee amount"
+              type="number"
+              placeholder="Enter fee amount (numbers only"
               className="input input-bordered input-md w-full"
+              name="fee"
             />
           </label>
 
@@ -143,16 +156,23 @@ export const FormEvent = ({ communityId }) => {
             placeholder="Describe what's special about your event & other important details"
             className="px-4 py-3 border rounded-lg w-full"
             rows={6}
+            name="note"
           />
         </div>
+        <input type="hidden" value={communityId} name="communityId" />
         <div className="flex justify-end mt-4">
-          <Button variant="secondary" disabled={pending}>
-            Submit
-          </Button>
-          {!state?.success && <p>{state?.message}</p>}
-          {state?.success && <p>{state?.message}</p>}
+          {/* {!state?.success && (
+            <p className="text-red-600 bg-rose-200 p-2 rounded-md text-center">
+              {state?.message}
+            </p>
+          )}
+          {state?.success && <p>{state?.message}</p>} */}
+          <div className="flex justify-end">
+            <Button variant="secondary" disabled={pending}>
+              Submit
+            </Button>
+          </div>
         </div>
-        <div className="mt-8"></div>
       </form>
     </div>
   );
