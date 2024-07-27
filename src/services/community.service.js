@@ -193,3 +193,13 @@ export const getMyCommunityByUserId = async (userId) => {
 
   return result;
 };
+
+export const getAllCommunityId = async () => {
+  const result = await prisma.community.findMany({
+    select: {
+      community_id: true
+    }
+  })
+
+  return result;
+}

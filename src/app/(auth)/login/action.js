@@ -12,7 +12,7 @@ export async function loginAction(_, formData) {
 
   if (!email || !password) {
     return {
-      success: false,
+      status: "error",
       message: "All fields are required",
       data: {
         email: email,
@@ -23,7 +23,7 @@ export async function loginAction(_, formData) {
 
   if (password.length < 6) {
     return {
-      success: false,
+      status: "error",
       message: "Password must be at least 6 characters long",
       data: {
         email: email,
@@ -53,7 +53,7 @@ export async function loginAction(_, formData) {
 
   if (!passwordValidation) {
     return {
-      success: false,
+      status: "error",
       message: "Wrong password",
       data: {
         email: email,
