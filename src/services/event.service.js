@@ -26,6 +26,30 @@ export const getEventListByCommunityId = async (communityId) => {
   return result;
 };
 
+export const getEventsByUserId = async (userId) => {
+  const result = await prisma.eventParticipant.findMany({
+    where: {
+      user_id: userId,
+    },
+    select: {
+      event: {
+        select: {
+          event_id: true,
+          event_image: true,
+          name: true,
+          start_time: true,
+          quota: true,
+          location: true,
+          end_time: true,
+          fee: true,
+        },
+      },
+    },
+  });
+
+  return result;
+};
+
 export const addEventParticipant = async (eventId, userId) => {
   const checkParticipant = await prisma.eventParticipant.findFirst({
     where: {
@@ -80,6 +104,7 @@ export const getEventDetailByEventId = async (eventId) => {
   });
   return result;
 };
+
 export const getTotalEventParticipantbyEventId = async (eventId) => {
   const result = await prisma.eventParticipant.count({
     where: {
@@ -89,4 +114,40 @@ export const getTotalEventParticipantbyEventId = async (eventId) => {
     },
   });
   return result;
+};
+export const getComunittyIdbyEventId = async (eventId) => {
+  const result = await prisma.event.findFirst({
+    where: {
+      event_id: eventId,
+    },
+    select: {
+      community_id: true,
+    },
+  });
+  return result;
+};
+export const checkEventParticipantbyEventandUserId = async (
+  eventId,
+  userId
+) => {
+  const eventParticipant = await prisma.eventParticipant.findFirst({
+    where: {
+      AND: [
+        {
+          user_id: {
+            equals: userId,
+          },
+        },
+        {
+          event_id: {
+            equals: eventId,
+          },
+        },
+      ],
+    },
+  });
+  if (eventParticipant) {
+    return true;
+  }
+  return false;
 };
