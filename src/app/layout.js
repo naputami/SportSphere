@@ -9,7 +9,7 @@ export const metadata = {
   title: "Sport Sphere",
   description: "Sport Sphere By Elysium",
   icons: {
-    icon: "/icon.svg",
+    icon: "/sport-sphere-icon.svg",
   },
 };
 
