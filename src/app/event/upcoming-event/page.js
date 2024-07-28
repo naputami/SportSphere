@@ -7,7 +7,6 @@ import { PageTemplate } from "@/components/template/page-template";
 export default async function Page() {
   const { id } = serverAuth();
   const events = await getEventsByUserId(id);
-  console.log(events);
   const now = new Date();
   const upComingEvents = events.filter(({ event }) => new Date(event.start_time) > now);
   const pastEvents = events.filter(({ event }) => new Date(event.start_time) < now);
