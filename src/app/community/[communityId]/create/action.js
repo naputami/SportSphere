@@ -15,6 +15,7 @@ export async function CreateEventAction(_, formData) {
   const fee = formData.get("fee");
   const communityId = formData.get("communityId");
   const note = formData.get("note");
+  const userId = formData.get("userId")
 
   if (
     !eventName ||
@@ -61,6 +62,13 @@ export async function CreateEventAction(_, formData) {
       additional_note: note,
     },
   });
+
+  await prisma.eventParticipant.create({
+    data: {
+      user_id: userId,
+      event_id: event.event_id
+    }
+  })
 
   await uploadFile({
     key: file.name,

@@ -11,6 +11,8 @@ import { CommunityEvent } from "./community-event";
 import React from "react";
 import { prisma } from "@/utils/prisma";
 import Link from "next/link";
+import { BackButton } from "@/components/back-button";
+
 
 export const revalidate = 300;
 
@@ -40,74 +42,55 @@ export default async function Page({ params }) {
   return (
     <PageTemplate>
       <main className="mt-6 container mx-auto px-6 md:px-16">
-        <Link className="btn btn-ghost" href="/">
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 50 50"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M23.2592 14L10.6242 24.635M10.6242 24.635L23.2592 35.27M10.6242 24.635H38"
-              stroke="#2B293D"
-              stroke-width="3"
-              stroke-linecap="round"
-            />
-          </svg>
-          Back to homepage
-        </Link>
-        <React.Suspense fallback={<span className="loading loading-spinner loading-lg mt-4"></span>}>
-          <div className="w-full h-[200px] md:h-[350px] mt-4">
-            <Image
-              src={`${process.env.R2_PUBLIC_URL}/sport-sphere/communities/${communityId}/${community.community_image_profile}`}
-              width={0}
-              height={0}
-              sizes="100vw"
-              style={{
-                width: "100%",
-                maxHeight: "350px",
-                objectFit: "cover",
-                borderRadius: "15px",
-              }}
-              alt="Picture of the community"
-            />
+        <BackButton />
+        <div className="w-full h-[200px] md:h-[350px] mt-4">
+          <Image
+            src={`${process.env.R2_PUBLIC_URL}/sport-sphere/communities/${communityId}/${community.community_image_profile}`}
+            width={0}
+            height={0}
+            sizes="100vw"
+            style={{
+              width: "100%",
+              maxHeight: "350px",
+              objectFit: "cover",
+              borderRadius: "15px",
+            }}
+            alt="Picture of the community"
+          />
+        </div>
+        <div className="flex justify-between mt-6">
+          <div className="space-y-2">
+            <h1 className="font-bold text-2xl md:text-3xl">{community.name}</h1>
+            <p className="text-bold text-lg md:text-xl">
+              {getDisplayedSportType(community.sport_type)} |{" "}
+              {getDisplayedCityName(community.city)}
+            </p>
           </div>
-          <div className="flex justify-between mt-6">
-            <div className="space-y-2">
-              <h1 className="font-bold text-2xl md:text-3xl">
-                {community.name}
-              </h1>
-              <p className="text-bold text-lg md:text-xl">
-                {getDisplayedSportType(community.sport_type)} | {getDisplayedCityName(community.city)}
-              </p>
-            </div>
-            {community.user_id === user?.id && (
-              <Link
-                href={`/community/${communityId}/create`}
-                className="btn bg-yellow-theme hover:bg-yellow-theme"
-              >
-                Create Event
-              </Link>
-            )}
+          {community.user_id === user?.id && (
+            <Link
+              href={`/community/${communityId}/create`}
+              className="btn bg-yellow-theme hover:bg-yellow-theme"
+            >
+              Create Event
+            </Link>
+          )}
+        </div>
+        <div className="mt-4 space-x-2">
+          <div className="badge badge-outline badge-lg">
+            {totalCommunityMember} people has joined
           </div>
-          <div className="mt-4 space-x-2">
-            <div className="badge badge-outline badge-lg">
-              {totalCommunityMember} people has joined
-            </div>
-            <div className="badge badge-outline badge-lg">
-              {totalEvent} events
-            </div>
+          <div className="badge badge-outline badge-lg">
+            {totalEvent} events
           </div>
-          <section className="mt-10 space-y-2">
-            <h2 className="font-bold text-md md:text-xl">
-              Community Description
-            </h2>
-            <p className="text-base md:text-lg">{community.description}</p>
-          </section>
-          <React.Suspense fallback="loading ...">
-            <CommunityEvent communityId={communityId} />
-          </React.Suspense>
+        </div>
+        <section className="mt-10 space-y-2">
+          <h2 className="font-bold text-md md:text-xl">
+            Community Description
+          </h2>
+          <p className="text-base md:text-lg">{community.description}</p>
+        </section>
+        <React.Suspense fallback="loading ...">
+          <CommunityEvent communityId={communityId} />
         </React.Suspense>
       </main>
     </PageTemplate>

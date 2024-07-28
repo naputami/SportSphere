@@ -5,7 +5,7 @@ export const PageTemplate = ({ children }) => {
   return (
     <>
       <div className="relative min-h-screen">
-        <div className="pb-16">
+        <div className="pb-28">
           <Navbar user={user} />
           {children}
         </div>

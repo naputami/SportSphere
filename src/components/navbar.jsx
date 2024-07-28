@@ -8,7 +8,6 @@ import Link from "next/link";
 export const Navbar = ({ user }) => {
   const [state, formAction, pending] = useActionState(logoutAction, null);
   const pathname = usePathname();
-  console.log("this is pathname", pathname);
   useEffect(() => {
     if (state?.status === "success") {
       toast.success(state?.message);

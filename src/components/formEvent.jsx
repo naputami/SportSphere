@@ -6,7 +6,7 @@ import { useEffect, useActionState } from "react";
 import { Button } from "@/components/button";
 import Link from "next/link";
 
-export const FormEvent = ({ communityId }) => {
+export const FormEvent = ({ communityId, userId }) => {
   const [state, formAction, pending] = useActionState(CreateEventAction, null);
   useEffect(() => {
     if (state?.status === "success") {
@@ -160,10 +160,14 @@ export const FormEvent = ({ communityId }) => {
           />
         </div>
         <input type="hidden" value={communityId} name="communityId" />
-        <div className="flex justify-end">
-          <Button variant="secondary" disabled={pending}>
-            Submit
-          </Button>
+        <input type="hidden" value={userId} name="userId" />
+        <div className="flex justify-end mt-4">
+          <div className="flex justify-end">
+            <Button variant="secondary" disabled={pending}>
+              {pending && <span className="loading loading-spinner"></span>}
+              Submit
+            </Button>
+          </div>
         </div>
       </form>
     </div>
