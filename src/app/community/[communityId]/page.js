@@ -11,6 +11,8 @@ import { CommunityEvent } from "./community-event";
 import React from "react";
 import { prisma } from "@/utils/prisma";
 import Link from "next/link";
+import { BackButton } from "@/components/back-button";
+
 
 export const revalidate = 300;
 
@@ -40,23 +42,7 @@ export default async function Page({ params }) {
   return (
     <PageTemplate>
       <main className="mt-6 container mx-auto px-6 md:px-16">
-        <Link className="btn btn-ghost" href="/">
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 50 50"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M23.2592 14L10.6242 24.635M10.6242 24.635L23.2592 35.27M10.6242 24.635H38"
-              stroke="#2B293D"
-              stroke-width="3"
-              stroke-linecap="round"
-            />
-          </svg>
-          Back to homepage
-        </Link>
+        <BackButton />
         <div className="w-full h-[200px] md:h-[350px] mt-4">
           <Image
             src={`${process.env.R2_PUBLIC_URL}/sport-sphere/communities/${communityId}/${community.community_image_profile}`}
