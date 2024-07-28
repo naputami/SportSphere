@@ -36,7 +36,7 @@ export default function page() {
       </div>
       <div className="bg-white border-l rounded-s-3xl px-16 space-y-8 py-24">
         <div>
-          <div className="text-indigo-900 text-3xl font-bold">
+          <div className="text-dark-navy-theme text-3xl font-bold">
             Create Account
           </div>
           <p>Create an account to continue</p>
@@ -107,7 +107,7 @@ export default function page() {
           Already have an account?{" "}
           <Link
             href="/login"
-            className="text-dark-navy-theme hover:underline hover:underline-offset-4"
+            className="text-blue-500 hover:underline hover:underline-offset-4"
           >
             Log in
           </Link>

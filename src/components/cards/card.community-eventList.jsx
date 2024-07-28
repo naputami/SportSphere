@@ -84,7 +84,7 @@ export const CommunityEventListCard = ({
             Participant: {participantCount}/{quota}
           </p>
           <p>Location: {location}</p>
-          <p>Fee: {fee === 0 ? "Gratis" : formatCurrency(fee)}</p>
+          <p>Fee: {fee === 0 ? "Free" : formatCurrency(fee)}</p>
         </div>
         <div className="card-actions justify-end">
           <form action={formAction}>

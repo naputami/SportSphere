@@ -1,10 +1,8 @@
 import React from "react";
-import { getEventListByCommunityId } from "@/services/event.service";
+import { getEventListByCommunityId} from "@/services/event.service";
 import { CommunityEventListCard } from "@/components/cards/card.community-eventList";
-import { serverAuth } from "@/libs/serverAuth";
 
-export const CommunityEvent = async ({ communityId }) => {
-  const user = serverAuth();
+export const CommunityEvent = async ({ communityId, user }) => {
   const eventList = await getEventListByCommunityId(communityId);
   const upComingEvents = eventList.filter((event) => event.start_time > new Date());
   const pastEvents = eventList.filter((event) => event.start_time < new Date());

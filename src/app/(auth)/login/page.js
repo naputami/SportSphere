@@ -90,7 +90,7 @@ export default function page() {
           Don&apos;t have an account?{" "}
           <Link
             href="/register"
-            className="text-dark-navy-theme hover:underline hover:underline-offset-4"
+            className="text-blue-500 hover:underline hover:underline-offset-4"
           >
             Register
           </Link>
