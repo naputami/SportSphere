@@ -160,18 +160,10 @@ export const FormEvent = ({ communityId }) => {
           />
         </div>
         <input type="hidden" value={communityId} name="communityId" />
-        <div className="flex justify-end mt-4">
-          {/* {!state?.success && (
-            <p className="text-red-600 bg-rose-200 p-2 rounded-md text-center">
-              {state?.message}
-            </p>
-          )}
-          {state?.success && <p>{state?.message}</p>} */}
-          <div className="flex justify-end">
-            <Button variant="secondary" disabled={pending}>
-              Submit
-            </Button>
-          </div>
+        <div className="flex justify-end">
+          <Button variant="secondary" disabled={pending}>
+            Submit
+          </Button>
         </div>
       </form>
     </div>

@@ -5,10 +5,12 @@ import { formatCurrency } from "@/libs/formatCurrency";
 import {
   getTotalEventParticipantbyEventId,
   getEventDetailByEventId,
+  getComunittyIdbyEventId,
+  checkEventParticipantbyEventandUserId,
 } from "@/services/event.service";
-import { Button } from "@/components/button";
-import React from "react";
+import { JoinEventButton } from "@/components/joinEvent";
 import Link from "next/link";
+import { serverAuth } from "@/libs/serverAuth";
 
 export const revalidate = 300;
 
@@ -16,6 +18,12 @@ export default async function Page({ params }) {
   const eventId = params.eventId;
   const event = await getEventDetailByEventId(eventId);
   const totalParticipiant = await getTotalEventParticipantbyEventId(eventId);
+  const { id } = serverAuth();
+  const communityId = await getComunittyIdbyEventId(eventId);
+  const isEventParticipant = await checkEventParticipantbyEventandUserId(
+    eventId,
+    id
+  );
 
   return (
     <PageTemplate>
@@ -34,8 +42,8 @@ export default async function Page({ params }) {
             <path
               d="M23.2592 14L10.6242 24.635M10.6242 24.635L23.2592 35.27M10.6242 24.635H38"
               stroke="#2B293D"
-              stroke-width="3"
-              stroke-linecap="round"
+              strokeWidth="3"
+              strokeLinecap="round"
             />
           </svg>
           Back to community
@@ -55,35 +63,53 @@ export default async function Page({ params }) {
             alt="Picture of the event"
           />
         </div>
-        <div className="flex justify-between mt-6">
-          <div className="space-y-2">
-            <h1 className="font-bold text-2xl md:text-3xl">{event.name}</h1>
-            <h4 className="text-lg">
-              {event.location} | {event.gmap_link}
-            </h4>
-            <div className="text-lg">
-              {totalParticipiant} / {event.quota} people has joined
+        <h1 className="font-bold text-6xl mt-6 space-y-4">{event.name}</h1>
+        <div className="badge text-lg font-semibold mt-6 space-y-4">
+          {totalParticipiant} / {event.quota} people has joined
+        </div>
+
+        <div className="flex justify-between mt-8">
+          <div className="space-y-4">
+            <div className="font-bold text-md md:text-xl">
+              Date and time
+              <h4 className="text-lg font-normal">
+                {formatDate(event.start_time)} - {formatDate(event.end_time)}
+              </h4>
+            </div>
+            <div className="font-bold text-md md:text-xl">
+              {" "}
+              Location
+              <h4 className="text-lg font-normal">
+                {event.location} |{" "}
+                <a
+                  href={event.gmap_link}
+                  className="text-blue-500 hover:pointer hover:underline"
+                >
+                  {event.gmap_link}
+                </a>
+              </h4>
+            </div>
+            <div>
+              <h2 className="font-bold text-md md:text-xl">
+                Community Description
+              </h2>
+              <p className="text-base md:text-lg">{event.additional_note}</p>
             </div>
           </div>
           <div className="text-right font-medium text-lg space-y-2">
-            <h4>
-              Start Date: {formatDate(event.start_time)} | End Date:{" "}
-              {formatDate(event.end_time)}
-            </h4>
             <h4>
               Registration deadline: {formatDate(event.registration_deadline)}
             </h4>
             <h4>Fee: {formatCurrency(event.fee)}</h4>
           </div>
         </div>
-        <section className="mt-10 space-y-2">
-          <h2 className="font-bold text-md md:text-xl">
-            Community Description
-          </h2>
-          <p className="text-base md:text-lg">{event.additional_note}</p>
-        </section>
         <div className="flex justify-end">
-          <Button>Join Event</Button>
+          <JoinEventButton
+            userId={id}
+            eventId={eventId}
+            communityId={communityId.community_id}
+            isParticipant={isEventParticipant}
+          />
         </div>
       </main>
     </PageTemplate>
