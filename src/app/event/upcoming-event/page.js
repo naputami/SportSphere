@@ -20,7 +20,7 @@ export default async function Page() {
             <h3 className="font-bold text-xl md:text-xl">Upcoming Events</h3>
             {upComingEvents.length == 0 && <p className="text-base md:text-base mt-2">You don't have any upcoming event.</p>}
             <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-              {events.map(({ event }) => (
+              {upComingEvents.map(({ event }) => (
                 <EventListCard
                   eventId={event.event_id}
                   eventName={event.name}
