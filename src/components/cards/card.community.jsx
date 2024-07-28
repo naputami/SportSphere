@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import { getDisplayedSportType } from "@/libs/getDisplayedSportType";
+import { getDisplayedCityName } from "@/libs/getDisplayedCityName";
 import Link from "next/link";
 import { useCommunityContext } from "@/context/community-context";
 
@@ -21,7 +22,7 @@ export const CommunityCard = ({
     <div className="card card-compact bg-base-100 w-full shadow-xl static">
       <figure className="md:h-40 lg:h-48">
         <Image
-          src={`${process.env.NEXT_PUBLIC_R2_PUBLIC_URL}/communities/${communityId}/${imageTitle}`}
+          src={`${process.env.NEXT_PUBLIC_R2_PUBLIC_URL}/sport-sphere/communities/${communityId}/${imageTitle}`}
           width={500}
           height={500}
           alt="Picture of the author"
@@ -55,7 +56,7 @@ export const CommunityCard = ({
         </div>
         <div className="flex justify-between mt-1">
           <p className="w-fit">
-            {getDisplayedSportType(sportType)} | {city}
+            {getDisplayedSportType(sportType)} | {getDisplayedCityName(city)}
           </p>
           {isPrivate && <div className="badge badge-outline">Private</div>}
         </div>

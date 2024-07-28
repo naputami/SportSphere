@@ -66,7 +66,7 @@ export const CommunityEventListCard = ({
     <div className="card card-compact bg-base-100 w-full shadow-xl static">
       <figure className="md:h-40 lg:h-48">
         <Image
-          src={`${process.env.NEXT_PUBLIC_R2_PUBLIC_URL}/events/${communityId}/${eventId}/${imageTitle}`}
+          src={`${process.env.NEXT_PUBLIC_R2_PUBLIC_URL}/sport-sphere/events/${eventId}/${imageTitle}`}
           width={500}
           height={500}
           alt="Picture of event community"

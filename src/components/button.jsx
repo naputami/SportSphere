@@ -8,7 +8,7 @@ export const Button = ({ variant, children }) => {
   }
 
   return (
-    <button className="bg-yellow-400 flex items-center gap-2 text-black">
+    <button className="btn bg-yellow-theme hover:bg-yellow-theme text-black">
       {children}
     </button>
   );

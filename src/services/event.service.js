@@ -80,12 +80,38 @@ export const addEventParticipant = async (eventId, userId) => {
   });
 };
 
+export const getEventDetailByEventId = async (eventId) => {
+  const result = await prisma.event.findFirst({
+    where: {
+      event_id: {
+        equals: eventId,
+      },
+    },
+    select: {
+      event_id: true,
+      name: true,
+      start_time: true,
+      end_time: true,
+      registration_deadline: true,
+      location: true,
+      gmap_link: true,
+      quota: true,
+      fee: true,
+      event_image: true,
+      additional_note: true,
+      community_id: true,
+    },
+  });
+  return result;
+};
+
 export const getTotalEventParticipantbyEventId = async (eventId) => {
   const result = await prisma.eventParticipant.count({
     where: {
-      event_id: eventId,
+      event_id: {
+        equals: eventId,
+      },
     },
   });
-
   return result;
 };
