@@ -90,7 +90,7 @@ export default async function Page({ params }) {
           <p className="text-base md:text-lg">{community.description}</p>
         </section>
         <React.Suspense fallback="loading ...">
-          <CommunityEvent communityId={communityId} />
+          <CommunityEvent communityId={communityId} user={user} />
         </React.Suspense>
       </main>
     </PageTemplate>

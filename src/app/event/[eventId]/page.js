@@ -11,14 +11,20 @@ import {
 import { JoinEventButton } from "@/components/joinEvent";
 import Link from "next/link";
 import { serverAuth } from "@/libs/serverAuth";
+import { redirect } from "next/navigation";
+import { checkStringUrl } from "@/libs/checkStringUrl";
 
 export const revalidate = 300;
 
 export default async function Page({ params }) {
+  const user = serverAuth();
+  if (!user) {
+    redirect("/login");
+  }
+  const { id } = user;
   const eventId = params.eventId;
   const event = await getEventDetailByEventId(eventId);
   const totalParticipiant = await getTotalEventParticipantbyEventId(eventId);
-  const { id } = serverAuth();
   const communityId = await getComunittyIdbyEventId(eventId);
   const isEventParticipant = await checkEventParticipantbyEventandUserId(
     eventId,
@@ -81,12 +87,16 @@ export default async function Page({ params }) {
               Location
               <h4 className="text-lg font-normal">
                 {event.location} |{" "}
-                <a
-                  href={event.gmap_link}
-                  className="text-blue-500 hover:pointer hover:underline"
-                >
-                  {event.gmap_link}
-                </a>
+                {checkStringUrl(event.gmap_link) ? (
+                  <a
+                    href={event.gmap_link}
+                    className="text-blue-500 hover:pointer hover:underline"
+                  >
+                    {event.gmap_link}
+                  </a>
+                ) : (
+                  <p className="text-dark-navy-theme">{event.gmap_link}</p>
+                )}
               </h4>
             </div>
             <div>

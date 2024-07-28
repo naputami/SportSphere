@@ -3,9 +3,14 @@ import { getEventsByUserId } from '@/services/event.service';
 import { EventListCard } from '@/components/cards/card.eventList';
 import { serverAuth } from '@/libs/serverAuth';
 import { PageTemplate } from "@/components/template/page-template";
+import { redirect } from 'next/navigation';
 
 export default async function Page() {
-  const { id } = serverAuth();
+  const user = serverAuth();
+  if(!user){
+    redirect("/login")
+  }
+  const { id } = user;
   const events = await getEventsByUserId(id);
   const now = new Date();
   const upComingEvents = events.filter(({ event }) => new Date(event.start_time) > now);

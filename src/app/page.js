@@ -16,7 +16,7 @@ export default async function Home({ searchParams }) {
           <SearchCommunityByCity />
         </section>
         <h2 className="text-xl lg:text-2xl font-bold mt-10">
-          Temukan Komunitas Yang Sesuai Dengan Dirimu
+          Discover your favorite sports communities here
         </h2>
         <Suspense fallback={<SkeletonCommunityList />}>
           <CommunityList city={city} sportType={sportType} />
